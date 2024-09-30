@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1 align="center"><b>Calculadora de Préstamos</h1></b>
+    <label for="monto"><b>Ingrese el monto del préstamo:</label></b>
+    <input type="number" id="monto" placeholder="Monto" required>
+    <br><br>
+    
+    <label for="tipo"><b>Seleccione el tipo de préstamo:</label></b>
+    <select id="tipo">
+        <option value="1">Préstamo personal (5% anual, hasta 5 años)</option>
+        <option value="2">Préstamo para vivienda (3% anual, hasta 20 años)</option>
+        <option value="3">Préstamo para automóvil (4% anual, hasta 7 años)</option>
+    </select>
+    <br><br>
+    
+    <label for="plazo"><b>Ingrese el plazo en años:</label></b>
+    <input type="number" id="plazo" placeholder="Años" required>
+    <br><br>
+    
+    <button onclick="calcularCuota()">Calcular Cuota Mensual</button>
+    
+    <h2 id="resultado"></h2>
+
+    <script>
+        function calcularCuota() {
+            const monto = parseFloat(document.getElementById("monto").value);
+            const tipoPrestamo = parseInt(document.getElementById("tipo").value);
+            const plazo = parseInt(document.getElementById("plazo").value);
+            let tasa;
+
+            if (tipoPrestamo === 1) {
+                tasa = 0.05;
+                if (plazo > 5) {
+                    alert("Error: El plazo no puede ser mayor a 5 años.");
+                    return;
+                }
+            } else if (tipoPrestamo === 2) {
+                tasa = 0.03;
+                if (plazo > 20) {
+                    alert("Error: El plazo no puede ser mayor a 20 años.");
+                    return;
+                }
+            } else if (tipoPrestamo === 3) {
+                tasa = 0.04;
+                if (plazo > 7) {
+                    alert("Error: El plazo no puede ser mayor a 7 años.");
+                    return;
+                }
+            } else {
+                alert("Error: Tipo de préstamo no válido.");
+                return;
+            }
+
+            const cuotaMensual = (monto * (1 + tasa * plazo)) / (plazo * 12);
+            document.getElementById("resultado").innerText = `La cuota mensual a pagar es: ${cuotaMensual.toFixed()} COP.`;
+        }
+            
+        
+    </script>
+</body>
+</html>
